@@ -10,8 +10,9 @@ public class UserService {
         UserDTO dto = new UserDTO();
 
         dto.setUuid(user.getUuid());
-        dto.setNome(user.getNome());
-
+        dto.setName(user.getName());
+        dto.setEmail(user,getEmail());
+        
         return dto;
     }
 
@@ -25,7 +26,7 @@ public class UserService {
 
         user.setNome(dto.getNome());
         user.setEmail(dto.getEmail());
-
+        user.setUuid(dto.getUuid());
         return user;
     }
 
