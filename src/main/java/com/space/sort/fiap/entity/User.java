@@ -11,7 +11,7 @@ import java.util.UUID;
 @Entity
 @Data
 @ToString
-@Table(name="tb_user")
+@Table(name="tb_account")
 public class User {
     @Column(nullable = false)
     private String name;
