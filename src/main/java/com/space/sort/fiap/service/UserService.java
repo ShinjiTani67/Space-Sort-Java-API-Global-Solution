@@ -1,3 +1,4 @@
+package com.space.sort.fiap.service;
 @Service
 @AllArgsConstructor
 public class UserService {
