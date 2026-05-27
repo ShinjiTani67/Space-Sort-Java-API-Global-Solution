@@ -13,8 +13,11 @@ import java.util.UUID;
 @ToString
 @Table(name="tb_user")
 public class User {
-
+    @Column(nullable = false)
     private String nome;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
+    @Column(nullable = false)
+    private String email;
 }
