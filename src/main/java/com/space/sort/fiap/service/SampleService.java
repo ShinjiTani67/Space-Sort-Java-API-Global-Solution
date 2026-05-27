@@ -11,9 +11,9 @@ public class SampleService {
 
         dto.setUuid(sample.getUuid());
         dto.setNome(sample.getNome());
-        dto.setEmail(sample.getEmail());
-        dto.setSenha(sample.getSenha());
-        dto.setCargo(sample.getCargo());
+        dto.setDescription(sample.getDescription());
+        dto.setDate(sample.getDate());
+        dto.setOwner(sample.getOwner());
 
         return dto;
     }
@@ -28,9 +28,10 @@ public class SampleService {
         }
 
         sample.setNome(dto.getNome());
-        sample.setEmail(dto.getEmail());
-        sample.setSenha(dto.getSenha());
-        sample.setCargo(dto.getCargo());
+        sample.setDescription(dto.getDescription());
+        sample.setUuid(dto.getUuid());
+        sample.setDate(dto.getDate());
+        sample.setOwner(dto.getOwner());
 
         return sample;
     }
@@ -39,7 +40,6 @@ public class SampleService {
 
         Sample sample = convertToEntity(sampleDTO);
 
-        // NÃO gerar UUID manualmente
         sample = repository.save(sample);
 
         return convertToDTO(sample);
