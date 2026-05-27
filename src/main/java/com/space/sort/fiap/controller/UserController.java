@@ -1,4 +1,4 @@
-package com.space.sort.fiap.entity;
+package com.space.sort.fiap.controller;
 
 @Controller
 @RequestMapping("/user")
