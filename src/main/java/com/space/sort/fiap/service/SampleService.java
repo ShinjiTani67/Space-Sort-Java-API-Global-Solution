@@ -1,4 +1,16 @@
 package com.space.sort.fiap.service;
+
+import com.space.sort.fiap.dto.SampleDTO;
+import com.space.sort.fiap.entity.Sample;
+import com.space.sort.fiap.repository.SampleRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+
 @Service
 @AllArgsConstructor
 public class SampleService {
@@ -10,7 +22,7 @@ public class SampleService {
         SampleDTO dto = new SampleDTO();
 
         dto.setUuid(sample.getUuid());
-        dto.setNome(sample.getNome());
+        dto.setName(sample.getName());
         dto.setDescription(sample.getDescription());
         dto.setDate(sample.getDate());
         dto.setOwner(sample.getOwner());
@@ -27,7 +39,7 @@ public class SampleService {
             sample.setUuid(dto.getUuid());
         }
 
-        sample.setNome(dto.getNome());
+        sample.setName(dto.getName());
         sample.setDescription(dto.getDescription());
         sample.setUuid(dto.getUuid());
         sample.setDate(dto.getDate());

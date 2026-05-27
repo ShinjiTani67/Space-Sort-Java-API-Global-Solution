@@ -16,4 +16,5 @@ public class SampleDTO{
     private UUID uuid;
     private String description;
     private LocalDate data;
+    private String owner;
 }

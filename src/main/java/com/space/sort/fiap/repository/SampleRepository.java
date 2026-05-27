@@ -1,10 +1,11 @@
-package com.space.sort.fiap.entity;
+package com.space.sort.fiap.repository;
 
 import java.util.Optional;
 import java.util.UUID;
-import com.space.sort.fiap.entity;
+import com.space.sort.fiap.entity.Sample;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SampleRepository extends JpaRepository<Sample,UUID>{
+public interface SampleRepository extends JpaRepository<Sample,UUID> {
 
     Optional<Sample> findByUuid(UUID uuid);
 }

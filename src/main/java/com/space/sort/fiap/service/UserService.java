@@ -1,4 +1,15 @@
 package com.space.sort.fiap.service;
+
+import com.space.sort.fiap.dto.UserDTO;
+import com.space.sort.fiap.entity.User;
+import com.space.sort.fiap.repository.UserRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class UserService {
@@ -11,7 +22,7 @@ public class UserService {
 
         dto.setUuid(user.getUuid());
         dto.setName(user.getName());
-        dto.setEmail(user,getEmail());
+
         
         return dto;
     }
@@ -34,13 +45,11 @@ public class UserService {
 
         User user = convertToEntity(userDTO);
 
-        // NÃO gerar UUID manualmente
         user = repository.save(user);
 
         return convertToDTO(user);
     }
 
-    // LISTAR TODOS
     public List<UserDTO> getUser() {
 
         return repository.findAll()
@@ -91,10 +100,8 @@ public class UserService {
                 .orElseThrow(() ->
                         new RuntimeException("Funcionário não encontrado"));
 
-        user.setNome(dto.getNome());
+        user.setName(dto.getName());
         user.setEmail(dto.getEmail());
-        user.setSenha(dto.getSenha());
-        user.setCargo(dto.getCargo());
 
         user = repository.save(user);
 
