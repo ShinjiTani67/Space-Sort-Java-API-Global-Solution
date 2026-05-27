@@ -1,10 +1,16 @@
 package com.space.sort.fiap.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.UUID;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public Class UserDTO{
-  private String name;
-  private UUID uuid;
-  private String email;
+public class UserDTO{
+    private String name;
+    private UUID uuid;
+    private String email;
 }

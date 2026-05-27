@@ -1,5 +1,16 @@
 package com.space.sort.fiap.controller;
 
+import com.space.sort.fiap.dto.SampleDTO;
+import com.space.sort.fiap.dto.UserDTO;
+import com.space.sort.fiap.service.SampleService;
+import lombok.extern.java.Log;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
+
 @Controller
 @RequestMapping("/sample")
 @Log
