@@ -12,7 +12,13 @@ import java.util.UUID;
 @ToString
 @Table(name="tb_user")
 public class Sample {
+    @Column(nullable = false)
     private String description;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
+    @Column(nullable = false)
     private LocalDate data;
+    @Column(nullable = false)
+    private String nome;
 }
