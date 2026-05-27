@@ -21,4 +21,6 @@ public class Sample {
     private LocalDate date;
     @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
+    private String owner;
 }
