@@ -4,7 +4,7 @@ package com.space.sort.fiap.dto;
 @NoArgsConstructor
 @Data
 public Class UserDTO{
-  private String nome;
+  private String name;
   private UUID uuid;
   private String email;
 }
