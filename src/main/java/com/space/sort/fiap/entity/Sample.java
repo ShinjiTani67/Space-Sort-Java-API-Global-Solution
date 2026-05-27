@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.ToString;
-
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -14,4 +14,5 @@ import java.util.UUID;
 public class Sample {
     private String description;
     private UUID uuid;
+    private LocalDate data;
 }
