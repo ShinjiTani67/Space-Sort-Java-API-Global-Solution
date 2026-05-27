@@ -14,7 +14,7 @@ import java.util.UUID;
 @Table(name="tb_user")
 public class User {
     @Column(nullable = false)
-    private String nome;
+    private String name;
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
