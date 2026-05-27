@@ -18,7 +18,7 @@ public class Sample {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
     @Column(nullable = false)
-    private LocalDate data;
+    private LocalDate date;
     @Column(nullable = false)
-    private String nome;
+    private String name;
 }
