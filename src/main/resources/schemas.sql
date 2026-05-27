@@ -1,6 +1,6 @@
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
-CREATE TABLE sample (
+CREATE TABLE tb_sample (
     uuid UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     description VARCHAR(255) NOT NULL,
     date DATE NOT NULL,
