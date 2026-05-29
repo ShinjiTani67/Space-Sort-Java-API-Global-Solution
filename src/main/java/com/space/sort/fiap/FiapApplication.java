@@ -9,5 +9,5 @@ public class FiapApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FiapApplication.class, args);
 	}
-
+//docker compose up -d
 }

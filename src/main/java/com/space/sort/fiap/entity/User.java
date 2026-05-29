@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 import java.util.UUID;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
 
 
 @Entity
