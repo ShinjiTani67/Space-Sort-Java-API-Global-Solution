@@ -27,7 +27,7 @@ public class SampleController {
 
         var sampleList = service.getSample();
 
-        userList.forEach(e ->
+        sampleList.forEach(e ->
                 log.info("ID funcionário: " + e.getUuid())
         );
 
@@ -37,7 +37,7 @@ public class SampleController {
     @PutMapping("/{uuid}")
     public ResponseEntity<SampleDTO> update(
             @PathVariable UUID uuid,
-            @RequestBody UserDTO dto) {
+            @RequestBody SampleDTO dto) {
 
         return ResponseEntity.ok(service.update(uuid, dto));
     }
@@ -52,7 +52,7 @@ public class SampleController {
 
         log.info("Salvando funcionário: " + sampleDTO);
 
-        return service.save(userDTO);
+        return "/return";
     }
 
     @DeleteMapping("/delete/{uuid}")
