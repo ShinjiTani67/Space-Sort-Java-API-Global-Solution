@@ -10,6 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 import java.util.List;
 
 @Configuration
@@ -17,13 +18,48 @@ import java.util.List;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http)
+            throws Exception {
 
         http
+
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+
+                .cors(cors ->
+                        cors.configurationSource(corsConfigurationSource())
+                )
+
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
+
+                        // páginas públicas
+                        .requestMatchers(
+                                "/",
+                                "/signin",
+                                "/users/save",
+                                "/css/**",
+                                "/js/**"
+                        ).permitAll()
+
+                        // qualquer outra precisa login
+                        .anyRequest().authenticated()
+                )
+
+                .formLogin(form -> form
+
+                        // página customizada
+                        .loginPage("/")
+
+                        // para onde vai após login
+                        .defaultSuccessUrl("/dashboard", true)
+
+                        .permitAll()
+                )
+
+                .logout(logout -> logout
+
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/?logout")
+                        .permitAll()
                 );
 
         return http.build();
