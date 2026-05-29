@@ -3,9 +3,14 @@ package com.space.sort.fiap.service;
 import com.space.sort.fiap.dto.SampleDTO;
 import com.space.sort.fiap.entity.Sample;
 import com.space.sort.fiap.repository.SampleRepository;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.AllArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -24,7 +29,7 @@ public class SampleService {
         dto.setUuid(sample.getUuid());
         dto.setName(sample.getName());
         dto.setDescription(sample.getDescription());
-        dto.setDate(sample.getDate());
+        dto.setData(sample.getDate());
         dto.setOwner(sample.getOwner());
 
         return dto;
@@ -34,7 +39,6 @@ public class SampleService {
 
         Sample sample = new Sample();
 
-        // Só define UUID se for atualização
         if (dto.getUuid() != null) {
             sample.setUuid(dto.getUuid());
         }
@@ -42,7 +46,7 @@ public class SampleService {
         sample.setName(dto.getName());
         sample.setDescription(dto.getDescription());
         sample.setUuid(dto.getUuid());
-        sample.setDate(dto.getDate());
+        sample.setDate(dto.getData());
         sample.setOwner(dto.getOwner());
 
         return sample;
@@ -79,18 +83,6 @@ public class SampleService {
         return convertToDTO(sample);
     }
 
-    public SampleDTO findByEmail(String email) {
-
-        Sample sample = repository.findByEmail(email)
-                .orElseThrow(() ->
-                        new RuntimeException(
-                                "Funcionário com email " + email + " não encontrado"
-                        )
-                );
-
-        return convertToDTO(sample);
-    }
-
     public void deleteById(UUID uuid) {
 
         if (!repository.existsById(uuid)) {
@@ -108,11 +100,11 @@ public class SampleService {
                 .orElseThrow(() ->
                         new RuntimeException("Funcionário não encontrado"));
 
-        sample.setNome(dto.getNome());
-        sample.setEmail(dto.getEmail());
-        sample.setSenha(dto.getSenha());
-        sample.setCargo(dto.getCargo());
-
+        sample.setName(dto.getName());
+        sample.setOwner(dto.getOwner());
+        sample.setDate(dto.getData());
+        sample.setDescription(dto.getDescription());
+        sample.setUuid(dto.getUuid());
         sample = repository.save(sample);
 
         return convertToDTO(sample);

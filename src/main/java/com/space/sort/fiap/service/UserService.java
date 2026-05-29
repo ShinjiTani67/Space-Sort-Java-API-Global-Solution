@@ -35,7 +35,7 @@ public class UserService {
             user.setUuid(dto.getUuid());
         }
 
-        user.setNome(dto.getNome());
+        user.setName(dto.getName());
         user.setEmail(dto.getEmail());
         user.setUuid(dto.getUuid());
         return user;
@@ -65,18 +65,6 @@ public class UserService {
                 .orElseThrow(() ->
                         new RuntimeException(
                                 "Funcionário com id " + uuid + " não encontrado"
-                        )
-                );
-
-        return convertToDTO(user);
-    }
-
-    public UserDTO findByEmail(String email) {
-
-        User user = repository.findByEmail(email)
-                .orElseThrow(() ->
-                        new RuntimeException(
-                                "Funcionário com email " + email + " não encontrado"
                         )
                 );
 
