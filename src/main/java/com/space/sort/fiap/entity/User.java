@@ -13,6 +13,7 @@ import java.util.UUID;
 @ToString
 @Table(name="tb_account")
 public class User {
+
     @Column(nullable = false)
     private String name;
     @Id

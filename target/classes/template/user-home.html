@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Home</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            margin:0;
+            background:#f4f4f4;
+        }
+
+        .container{
+            max-width: 900px;
+            margin: 30px auto;
+            background:white;
+            padding:20px;
+            border-radius:10px;
+        }
+
+        h1{
+            margin-bottom:20px;
+        }
+
+        .form-group{
+            margin-bottom:10px;
+        }
+
+        input{
+            width:100%;
+            padding:8px;
+            margin-top:5px;
+        }
+
+        button{
+            padding:10px;
+            background:#28a745;
+            color:white;
+            border:none;
+            width:100%;
+            cursor:pointer;
+            margin-top:10px;
+        }
+
+        table{
+            width:100%;
+            margin-top:20px;
+            border-collapse: collapse;
+        }
+
+        th, td{
+            border:1px solid #ddd;
+            padding:8px;
+            text-align:left;
+        }
+
+        th{
+            background:#eee;
+        }
+
+        .card{
+            padding:15px;
+            border:1px solid #ddd;
+            border-radius:10px;
+            margin-bottom:20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Dashboard do Usuário</h1>
+
+    <!-- FORM SAMPLE -->
+    <div class="card">
+        <h3>Criar Sample</h3>
+
+        <form id="sampleForm">
+
+            <div class="form-group">
+                <label>Nome</label>
+                <input type="text" id="name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Descrição</label>
+                <input type="text" id="description" required>
+            </div>
+
+            <div class="form-group">
+                <label>Data</label>
+                <input type="date" id="date" required>
+            </div>
+
+            <div class="form-group">
+                <label>Owner</label>
+                <input type="text" id="owner" required>
+            </div>
+
+            <button type="submit">Salvar Sample</button>
+        </form>
+
+        <div id="msg"></div>
+    </div>
+
+    <!-- LIST -->
+    <div class="card">
+        <h3>Samples</h3>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Data</th>
+                <th>Owner</th>
+            </tr>
+            </thead>
+
+            <tbody id="sampleTable"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+
+    async function loadSamples() {
+
+        const res = await fetch("/samples/all");
+        const data = await res.json();
+
+        const table = document.getElementById("sampleTable");
+        table.innerHTML = "";
+
+        data.forEach(sample => {
+
+            table.innerHTML += `
+                <tr>
+                    <td>${sample.name}</td>
+                    <td>${sample.description}</td>
+                    <td>${sample.date}</td>
+                    <td>${sample.owner}</td>
+                </tr>
+            `;
+        });
+    }
+
+    document.getElementById("sampleForm")
+        .addEventListener("submit", async function (e) {
+
+        e.preventDefault();
+
+        const sample = {
+            name: document.getElementById("name").value,
+            description: document.getElementById("description").value,
+            date: document.getElementById("date").value,
+            owner: document.getElementById("owner").value
+        };
+
+        const res = await fetch("/samples/save", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(sample)
+        });
+
+        if(res.ok){
+            document.getElementById("msg").innerText = "Sample salvo com sucesso!";
+            document.getElementById("sampleForm").reset();
+            loadSamples();
+        } else {
+            document.getElementById("msg").innerText = "Erro ao salvar sample";
+        }
+    });
+
+    loadSamples();
+
+</script>
+
+</body>
+</html>

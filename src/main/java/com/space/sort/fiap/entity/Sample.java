@@ -1,9 +1,10 @@
 package com.space.sort.fiap.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
+import org.springframework.data.annotation.Id;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -12,6 +13,7 @@ import java.util.UUID;
 @ToString
 @Table(name="tb_user")
 public class Sample {
+
     @Column(nullable = false)
     private String description;
     @Id
