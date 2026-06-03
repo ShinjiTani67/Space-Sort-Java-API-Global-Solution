@@ -21,4 +21,7 @@ public class User {
     private UUID uuid;
     @Column(nullable = false)
     private String email;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role = Role.ASTRONAUT;
 }
