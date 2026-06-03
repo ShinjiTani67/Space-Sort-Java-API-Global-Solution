@@ -15,5 +15,5 @@ public class AuthController {
     public String signin() {
         return "signin";
     }
-    
+
 }
