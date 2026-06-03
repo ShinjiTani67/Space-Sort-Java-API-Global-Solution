@@ -58,7 +58,6 @@ public class CivilService {
                 .collect(Collectors.toList());
     }
 
-    // BUSCAR POR ID
     public CivilDTO findById(UUID uuid) {
 
         Civil civil = repository.findById(uuid)

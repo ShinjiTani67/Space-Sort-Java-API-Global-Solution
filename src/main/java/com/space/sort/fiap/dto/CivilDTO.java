@@ -9,7 +9,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CivilDTO{
+public class CivilDTO {
     private String name;
     private UUID uuid;
     private String email;

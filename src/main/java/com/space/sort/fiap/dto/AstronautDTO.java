@@ -9,7 +9,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserDTO{
+public class AstronautDTO {
     private String name;
     private UUID uuid;
     private String email;

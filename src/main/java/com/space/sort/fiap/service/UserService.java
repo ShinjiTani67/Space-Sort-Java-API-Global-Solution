@@ -1,8 +1,8 @@
 package com.space.sort.fiap.service;
 
-import com.space.sort.fiap.dto.UserDTO;
+import com.space.sort.fiap.dto.AstronautDTO;
 import com.space.sort.fiap.entity.Astronaut;
-import com.space.sort.fiap.repository.UserRepository;
+import com.space.sort.fiap.repository.AstronautRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserService {
 
-    private final UserRepository repository;
+    private final AstronautRepository repository;
 
-    private UserDTO convertToDTO(Astronaut astronaut) {
+    private AstronautDTO convertToDTO(Astronaut astronaut) {
 
-        UserDTO dto = new UserDTO();
+        AstronautDTO dto = new AstronautDTO();
 
         dto.setUuid(astronaut.getUuid());
         dto.setName(astronaut.getName());
@@ -27,7 +27,7 @@ public class UserService {
         return dto;
     }
 
-    private Astronaut convertToEntity(UserDTO dto) {
+    private Astronaut convertToEntity(AstronautDTO dto) {
 
         Astronaut astronaut = new Astronaut();
 
@@ -41,16 +41,16 @@ public class UserService {
         return astronaut;
     }
 
-    public UserDTO save(UserDTO userDTO) {
+    public AstronautDTO save(AstronautDTO astronautDTO) {
 
-        Astronaut astronaut = convertToEntity(userDTO);
+        Astronaut astronaut = convertToEntity(astronautDTO);
 
         astronaut = repository.save(astronaut);
 
         return convertToDTO(astronaut);
     }
 
-    public List<UserDTO> getUser() {
+    public List<AstronautDTO> getUser() {
 
         return repository.findAll()
                 .stream()
@@ -59,7 +59,7 @@ public class UserService {
     }
 
     // BUSCAR POR ID
-    public UserDTO findById(UUID uuid) {
+    public AstronautDTO findById(UUID uuid) {
 
         Astronaut astronaut = repository.findById(uuid)
                 .orElseThrow(() ->
@@ -82,7 +82,7 @@ public class UserService {
         repository.deleteById(uuid);
     }
 
-    public UserDTO update(UUID uuid, UserDTO dto) {
+    public AstronautDTO update(UUID uuid, AstronautDTO dto) {
 
         Astronaut astronaut = repository.findByUuid(uuid)
                 .orElseThrow(() ->
