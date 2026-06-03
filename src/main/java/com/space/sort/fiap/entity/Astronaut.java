@@ -24,7 +24,7 @@ public class Astronaut {
     private String email;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role = Role.ASTRONAUT;
+    private Role role = Role.ROLE_ASTRONAUT;
     @Column(nullable = false)
     private String password;
 }

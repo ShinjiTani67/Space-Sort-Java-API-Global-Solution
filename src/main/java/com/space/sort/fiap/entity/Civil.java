@@ -24,7 +24,7 @@ public class Civil {
     private String email;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role = Role.CIVIL;
+    private Role role = Role.ROLE_CIVIL;
     @Column(nullable = false)
     private String password;
 }

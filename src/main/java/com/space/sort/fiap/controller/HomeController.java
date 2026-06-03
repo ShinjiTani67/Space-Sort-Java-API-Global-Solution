@@ -6,8 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    @GetMapping("/dashboard")
-    public String dashboard() {
-        return "user-home";
+    @GetMapping("/astronaut-dashboard")
+    public String astronautDashboard() {
+        return "astronaut-dashboard";
+    }
+
+    @GetMapping("/civil-dashboard")
+    public String civilDashboard() {
+        return "civil-dashboard";
     }
 }

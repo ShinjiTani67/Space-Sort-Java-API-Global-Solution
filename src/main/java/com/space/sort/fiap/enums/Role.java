@@ -1,6 +1,6 @@
 package com.space.sort.fiap.enums;
 
 public enum Role {
-    ASTRONAUT,
-    CIVIL
+    ROLE_ASTRONAUT,
+    ROLE_CIVIL
 }

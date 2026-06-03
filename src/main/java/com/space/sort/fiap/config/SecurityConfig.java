@@ -42,7 +42,19 @@ public class SecurityConfig {
 
                 .formLogin(form -> form
                         .loginPage("/")
-                        .defaultSuccessUrl("/dashboard", true)
+                        .successHandler((request, response, authentication) -> {
+
+                            boolean isAstronaut =
+                                    authentication.getAuthorities()
+                                            .stream()
+                                            .anyMatch(a -> a.getAuthority().equals("ROLE_ASTRONAUT"));
+
+                            if (isAstronaut) {
+                                response.sendRedirect("/astronaut-dashboard");
+                            } else {
+                                response.sendRedirect("/civil-dashboard");
+                            }
+                        })
                         .permitAll()
                 )
 
