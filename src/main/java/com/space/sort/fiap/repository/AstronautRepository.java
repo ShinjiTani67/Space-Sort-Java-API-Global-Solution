@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface AstronautRepository extends JpaRepository<Astronaut,UUID> {
 
     Optional<Astronaut> findByUuid(UUID uuid);
+    Optional<Astronaut> findByEmail(String email);
 }

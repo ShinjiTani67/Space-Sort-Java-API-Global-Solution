@@ -5,9 +5,11 @@ import java.util.UUID;
 
 import com.space.sort.fiap.entity.Civil;
 import com.space.sort.fiap.entity.Sample;
+import jakarta.validation.constraints.Email;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CivilRepository extends JpaRepository<Civil,UUID> {
 
     Optional<Civil> findByUuid(UUID uuid);
+    Optional<Civil> findByEmail(String email);
 }

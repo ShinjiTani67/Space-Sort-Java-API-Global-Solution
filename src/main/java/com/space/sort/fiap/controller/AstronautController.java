@@ -1,7 +1,7 @@
 package com.space.sort.fiap.controller;
 
 import com.space.sort.fiap.dto.AstronautDTO;
-import com.space.sort.fiap.service.UserService;
+import com.space.sort.fiap.service.AstronautService;
 import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,9 +14,9 @@ import java.util.UUID;
 @Log
 public class AstronautController {
 
-    private final UserService service;
+    private final AstronautService service;
 
-    public AstronautController(UserService service) {
+    public AstronautController(AstronautService service) {
         this.service = service;
     }
 
