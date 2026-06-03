@@ -106,19 +106,19 @@
 
         event.preventDefault();
 
-        const user = {
+        const astronaut = {
             name: document.getElementById("name").value,
             email: document.getElementById("email").value
         };
 
         try{
 
-            const response = await fetch("/user/save", {
+            const response = await fetch("/astronaut/save", {
                 method: "POST",
                 headers:{
                     "Content-Type":"application/json"
                 },
-                body: JSON.stringify(user)
+                body: JSON.stringify(astronaut)
             });
 
             if(response.ok){

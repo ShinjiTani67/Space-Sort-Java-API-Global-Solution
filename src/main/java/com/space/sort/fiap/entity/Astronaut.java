@@ -1,6 +1,7 @@
 package com.space.sort.fiap.entity;
 
 
+import com.space.sort.fiap.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
@@ -12,7 +13,7 @@ import jakarta.persistence.Id;
 @Data
 @ToString
 @Table(name="tb_account")
-public class User {
+public class Astronaut {
 
     @Column(nullable = false)
     private String name;
