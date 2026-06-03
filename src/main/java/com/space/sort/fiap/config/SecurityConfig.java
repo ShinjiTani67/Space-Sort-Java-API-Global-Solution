@@ -30,8 +30,6 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
-
-                        // páginas públicas
                         .requestMatchers(
                                 "/",
                                 "/signin",
@@ -39,19 +37,12 @@ public class SecurityConfig {
                                 "/css/**",
                                 "/js/**"
                         ).permitAll()
-
-                        // qualquer outra precisa login
                         .anyRequest().authenticated()
                 )
 
                 .formLogin(form -> form
-
-                        // página customizada
                         .loginPage("/")
-
-                        // para onde vai após login
                         .defaultSuccessUrl("/dashboard", true)
-
                         .permitAll()
                 )
 
