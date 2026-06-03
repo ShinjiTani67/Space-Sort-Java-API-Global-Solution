@@ -8,16 +8,20 @@ CREATE TABLE tb_sample (
     owner VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE tb_account (
-    uuid UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL
-);
-
 CREATE TABLE tb_civil (
     uuid UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE tb_account (
+    uuid UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL
 );
 
 INSERT INTO tb_sample (description, date, name, owner)
@@ -25,12 +29,13 @@ VALUES
 ('Amostra de solo marciano', '2026-06-01', 'Sample 1', 'NASA'),
 ('Fragmento lunar', '2026-06-02', 'Sample 2', 'ESA');
 
-INSERT INTO tb_account (name, email)
+INSERT INTO tb_account (name, email, password, role)
 VALUES
-('Neil Armstrong', 'neil@space.com'),
-('Buzz Aldrin', 'buzz@space.com');
+('Neil Armstrong', 'neil@space.com', '123456', 'ASTRONAUT'),
+('Buzz Aldrin', 'buzz@space.com', '123456', 'ASTRONAUT');
 
-INSERT INTO tb_civil (name, email)
+
+INSERT INTO tb_civil (name, email, password, role)
 VALUES
-('Fernando Tanigushi', 'fernando@email.com'),
-('Maria Silva', 'maria@email.com');
+('Fernando', 'fernando@email.com', '123456', 'CIVIL'),
+('Maria Silva', 'maria@email.com', '123456', 'CIVIL');

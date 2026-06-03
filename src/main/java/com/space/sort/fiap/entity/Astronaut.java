@@ -25,4 +25,6 @@ public class Astronaut {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role = Role.ASTRONAUT;
+    @Column(nullable = false)
+    private String password;
 }

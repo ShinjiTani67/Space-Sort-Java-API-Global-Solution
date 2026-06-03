@@ -25,4 +25,6 @@ public class Civil {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role = Role.CIVIL;
+    @Column(nullable = false)
+    private String password;
 }
