@@ -1,7 +1,10 @@
 package com.space.sort.fiap.config;
 
+import com.space.sort.fiap.service.CustomUserDetailsService;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,14 +18,29 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig {
+
+    private final CustomUserDetailsService customUserDetailsService;
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+
+        DaoAuthenticationProvider auth =
+                new DaoAuthenticationProvider(customUserDetailsService);
+
+        auth.setPasswordEncoder(passwordEncoder());
+
+        return auth;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)
             throws Exception {
 
-        http
+        http.authenticationProvider(authenticationProvider());
 
+        http
                 .csrf(csrf -> csrf.disable())
 
                 .cors(cors ->
@@ -47,7 +65,8 @@ public class SecurityConfig {
                             boolean isAstronaut =
                                     authentication.getAuthorities()
                                             .stream()
-                                            .anyMatch(a -> a.getAuthority().equals("ROLE_ASTRONAUT"));
+                                            .anyMatch(a ->
+                                                    a.getAuthority().equals("ROLE_ASTRONAUT"));
 
                             if (isAstronaut) {
                                 response.sendRedirect("/astronaut-dashboard");
@@ -59,7 +78,6 @@ public class SecurityConfig {
                 )
 
                 .logout(logout -> logout
-
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/?logout")
                         .permitAll()
