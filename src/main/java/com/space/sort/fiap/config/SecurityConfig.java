@@ -52,8 +52,10 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/",
                                 "/signin",
-                                "/astronaut/save",
+                                "/users/save",
                                 "/civil/save",
+                                "/users/signin",
+                                "/civil/signin",
                                 "/css/**",
                                 "/js/**"
                         ).permitAll()
@@ -71,9 +73,9 @@ public class SecurityConfig {
                                                     a.getAuthority().equals("ROLE_ASTRONAUT"));
 
                             if (isAstronaut) {
-                                response.sendRedirect("/astronaut-dashboard");
+                                response.sendRedirect("/users/dashboard");
                             } else {
-                                response.sendRedirect("/civil-dashboard");
+                                response.sendRedirect("/civil/dashboard");
                             }
                         })
                         .permitAll()
