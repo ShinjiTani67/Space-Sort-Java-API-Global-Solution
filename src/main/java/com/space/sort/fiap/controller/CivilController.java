@@ -27,7 +27,7 @@ public class CivilController {
 
     @GetMapping("/dashboard")
     public String dashboardPage() {
-        return "dashboard";
+        return "civil-dashboard";
     }
 
     @ResponseBody

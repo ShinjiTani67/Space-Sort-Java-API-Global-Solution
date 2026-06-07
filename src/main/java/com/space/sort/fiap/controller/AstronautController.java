@@ -27,7 +27,7 @@ public class AstronautController {
 
     @GetMapping("/dashboard")
     public String dashboardPage() {
-        return "dashboard";
+        return "astronaut-dashboard";
     }
 
     @ResponseBody

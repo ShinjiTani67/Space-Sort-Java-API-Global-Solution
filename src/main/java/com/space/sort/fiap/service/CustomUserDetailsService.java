@@ -24,9 +24,16 @@ public class CustomUserDetailsService
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
 
+        System.out.println("Tentando login com: " + email);
+
         Optional<Civil> civil = civilRepository.findByEmail(email);
 
         if (civil.isPresent()) {
+
+            System.out.println("Civil encontrado");
+            System.out.println("Senha banco: " + civil.get().getPassword());
+            System.out.println("Role banco: " + civil.get().getRole());
+
             return new UserDetailsImpl(
                     civil.get().getEmail(),
                     civil.get().getPassword(),
@@ -38,12 +45,19 @@ public class CustomUserDetailsService
                 astronautRepository.findByEmail(email);
 
         if (astronaut.isPresent()) {
+
+            System.out.println("Astronauta encontrado");
+            System.out.println("Senha banco: " + astronaut.get().getPassword());
+            System.out.println("Role banco: " + astronaut.get().getRole());
+
             return new UserDetailsImpl(
                     astronaut.get().getEmail(),
                     astronaut.get().getPassword(),
                     astronaut.get().getRole()
             );
         }
+
+        System.out.println("Usuário não encontrado");
 
         throw new UsernameNotFoundException("Usuário não encontrado");
     }

@@ -52,7 +52,8 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/",
                                 "/signin",
-                                "/users/save",
+                                "/astronaut/save",
+                                "/civil/save",
                                 "/css/**",
                                 "/js/**"
                         ).permitAll()

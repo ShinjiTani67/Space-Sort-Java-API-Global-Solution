@@ -31,11 +31,11 @@ VALUES
 
 INSERT INTO tb_account (name, email, password, role)
 VALUES
-('Neil Armstrong', 'neil@space.com','12345', 'ASTRONAUT'),
-('Buzz Aldrin', 'buzz@space.com', '12345', 'ASTRONAUT');
+('Neil Armstrong', 'neil@space.com','12345', 'ROLE_ASTRONAUT'),
+('Buzz Aldrin', 'buzz@space.com', '12345', 'ROLE_ASTRONAUT');
 
 
 INSERT INTO tb_civil (name, email, password, role)
 VALUES
-('Fernando', 'fernando@email.com', '12345', 'CIVIL'),
-('Maria Silva', 'maria@email.com', '12345', 'CIVIL');
+('Fernando', 'fernando@email.com', '12345', 'ROLE_CIVIL'),
+('Maria Silva', 'maria@email.com', '12345', 'ROLE_CIVIL');
