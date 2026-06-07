@@ -24,6 +24,8 @@ public class CivilService {
         dto.setName(civil.getName());
         dto.setEmail(civil.getEmail());
         dto.setPassword(civil.getPassword());
+        dto.setRole(civil.getRole());
+
         return dto;
     }
 
@@ -37,7 +39,8 @@ public class CivilService {
 
         civil.setName(dto.getName());
         civil.setEmail(dto.getEmail());
-        civil.setUuid(dto.getUuid());
+        civil.setPassword(dto.getPassword());
+        civil.setRole(dto.getRole());
 
         return civil;
     }
@@ -91,6 +94,8 @@ public class CivilService {
         civil.setName(dto.getName());
         civil.setEmail(dto.getEmail());
         civil.setPassword(dto.getPassword());
+        civil.setRole(dto.getRole());
+
         civil = repository.save(civil);
 
         return convertToDTO(civil);
