@@ -22,8 +22,10 @@ public class AstronautService {
 
         dto.setUuid(astronaut.getUuid());
         dto.setName(astronaut.getName());
+        dto.setEmail(astronaut.getEmail());
+        dto.setPassword(astronaut.getPassword());
+        dto.setRole(astronaut.getRole());
 
-        
         return dto;
     }
 
@@ -39,6 +41,7 @@ public class AstronautService {
         astronaut.setEmail(dto.getEmail());
         astronaut.setUuid(dto.getUuid());
         astronaut.setPassword(dto.getPassword());
+        astronaut.setRole(dto.getRole());
         return astronaut;
     }
 
@@ -91,6 +94,8 @@ public class AstronautService {
         astronaut.setName(dto.getName());
         astronaut.setEmail(dto.getEmail());
         astronaut.setPassword(dto.getPassword());
+        astronaut.setRole(dto.getRole());
+
         astronaut = repository.save(astronaut);
 
         return convertToDTO(astronaut);

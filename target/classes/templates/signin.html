@@ -113,48 +113,35 @@
 </div>
 
 <script>
-
     document.getElementById("userForm")
-        .addEventListener("submit", async function (event){
+        .addEventListener("submit", async function (event) {
 
         event.preventDefault();
+
         const role = document.getElementById("role").value;
 
-    const user = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        password: document.getElementById("password").value
+        const user = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value
         };
 
-    const endpoint =
-        role === "astronaut"
-            ? "/astronaut/save"
-            : "/civil/save";
+        const endpoint =
+            role === "astronaut"
+                ? "/astronaut/save"
+                : "/civil/save";
 
-    const response = await fetch(endpoint, {
-        method: "POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body: JSON.stringify(user)
-        });
+        try {
 
-    const astronaut = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value
-        };
-
-        try{
-
-            const response = await fetch("/astronaut/save", {
+            const response = await fetch(endpoint, {
                 method: "POST",
-                headers:{
-                    "Content-Type":"application/json"
+                headers: {
+                    "Content-Type": "application/json"
                 },
-                body: JSON.stringify(astronaut)
+                body: JSON.stringify(user)
             });
 
-            if(response.ok){
+            if (response.ok) {
 
                 const data = await response.json();
 
@@ -163,21 +150,24 @@
 
                 document.getElementById("userForm").reset();
 
-            }else{
+            } else {
+
+                const errorText = await response.text();
+
                 document.getElementById("message").innerHTML =
                     "Erro ao salvar usuário";
+
+                console.error(errorText);
             }
 
-        }catch(error){
+        } catch (error) {
 
             document.getElementById("message").innerHTML =
                 "Erro na requisição";
 
             console.error(error);
         }
-
     });
-
 </script>
 
 </body>
