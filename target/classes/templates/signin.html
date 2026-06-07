@@ -123,7 +123,10 @@
         const user = {
             name: document.getElementById("name").value,
             email: document.getElementById("email").value,
-            password: document.getElementById("password").value
+            password: document.getElementById("password").value,
+            role: role === "astronaut"
+                ? "ROLE_ASTRONAUT"
+                : "ROLE_CIVIL"
         };
 
         const endpoint =
