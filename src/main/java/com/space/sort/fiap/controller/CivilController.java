@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/civils")
+@RequestMapping("/civil")
 @Log
 public class CivilController {
 

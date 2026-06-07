@@ -13,4 +13,5 @@ public class CivilDTO {
     private String name;
     private UUID uuid;
     private String email;
+    private String password;
 }

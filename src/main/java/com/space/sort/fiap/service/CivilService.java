@@ -22,7 +22,8 @@ public class CivilService {
 
         dto.setUuid(civil.getUuid());
         dto.setName(civil.getName());
-
+        dto.setEmail(civil.getEmail());
+        dto.setPassword(civil.getPassword());
         return dto;
     }
 
@@ -89,7 +90,7 @@ public class CivilService {
 
         civil.setName(dto.getName());
         civil.setEmail(dto.getEmail());
-
+        civil.setPassword(dto.getPassword());
         civil = repository.save(civil);
 
         return convertToDTO(civil);

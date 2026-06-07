@@ -38,6 +38,7 @@ public class AstronautService {
         astronaut.setName(dto.getName());
         astronaut.setEmail(dto.getEmail());
         astronaut.setUuid(dto.getUuid());
+        astronaut.setPassword(dto.getPassword());
         return astronaut;
     }
 
@@ -58,7 +59,6 @@ public class AstronautService {
                 .collect(Collectors.toList());
     }
 
-    // BUSCAR POR ID
     public AstronautDTO findById(UUID uuid) {
 
         Astronaut astronaut = repository.findById(uuid)
@@ -90,7 +90,7 @@ public class AstronautService {
 
         astronaut.setName(dto.getName());
         astronaut.setEmail(dto.getEmail());
-
+        astronaut.setPassword(dto.getPassword());
         astronaut = repository.save(astronaut);
 
         return convertToDTO(astronaut);

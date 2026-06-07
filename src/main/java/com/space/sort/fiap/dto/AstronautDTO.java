@@ -13,4 +13,5 @@ public class AstronautDTO {
     private String name;
     private UUID uuid;
     private String email;
+    private String password;
 }
