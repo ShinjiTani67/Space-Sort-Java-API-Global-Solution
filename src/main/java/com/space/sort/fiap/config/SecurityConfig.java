@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -28,8 +27,9 @@ public class SecurityConfig {
     public DaoAuthenticationProvider authenticationProvider() {
 
         DaoAuthenticationProvider auth =
-                new DaoAuthenticationProvider(customUserDetailsService);
+                new DaoAuthenticationProvider();
 
+        auth.setUserDetailsService(customUserDetailsService);
         auth.setPasswordEncoder(passwordEncoder());
 
         return auth;
@@ -49,6 +49,7 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
+
                         .requestMatchers(
                                 "/",
                                 "/signin",
@@ -57,25 +58,34 @@ public class SecurityConfig {
                                 "/css/**",
                                 "/js/**"
                         ).permitAll()
-                        .anyRequest().authenticated()
+
+                        .requestMatchers("/users/dashboard")
+                        .hasAnyRole("ASTRONAUT", "CIVIL")
+
+                        .anyRequest()
+                        .authenticated()
                 )
 
                 .formLogin(form -> form
+
                         .loginPage("/")
+
                         .successHandler((request, response, authentication) -> {
 
                             boolean isAstronaut =
                                     authentication.getAuthorities()
                                             .stream()
                                             .anyMatch(a ->
-                                                    a.getAuthority().equals("ROLE_ASTRONAUT"));
+                                                    a.getAuthority()
+                                                            .equals("ROLE_ASTRONAUT"));
 
                             if (isAstronaut) {
                                 response.sendRedirect("/users/dashboard");
                             } else {
-                                response.sendRedirect("/civil/dashboard");
+                                response.sendRedirect("/users/dashboard");
                             }
                         })
+
                         .permitAll()
                 )
 
@@ -118,7 +128,8 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return NoOpPasswordEncoder.getInstance();
-        //return new BCryptPasswordEncoder();
+        // return new BCryptPasswordEncoder();
     }
 }
