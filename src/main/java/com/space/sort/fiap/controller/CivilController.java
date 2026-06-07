@@ -40,8 +40,8 @@ public class CivilController {
                 log.info("ID usuário: " + e.getUuid())
         );
 
-        //return ResponseEntity.ok(civilList);
-        return civil-dashboard;
+        return ResponseEntity.ok(civilList);
+        //return "civil-dashboard";
     }
 
     @ResponseBody
@@ -49,8 +49,8 @@ public class CivilController {
     public ResponseEntity<CivilDTO> getCivilById(
             @PathVariable UUID uuid) {
 
-        //return ResponseEntity.ok(service.findById(uuid));
-        return civil-dashboard;
+        return ResponseEntity.ok(service.findById(uuid));
+        //return "civil-dashboard";
     }
 
     @ResponseBody
@@ -60,8 +60,8 @@ public class CivilController {
 
         log.info("Salvando usuário: " + civilDTO);
 
-        //return ResponseEntity.ok(service.save(civilDTO));
-        return civil-dashboard;
+        return ResponseEntity.ok(service.save(civilDTO));
+        //return "civil-dashboard";
     }
 
     @ResponseBody
@@ -70,8 +70,8 @@ public class CivilController {
             @PathVariable UUID uuid,
             @RequestBody CivilDTO dto) {
 
-        //return ResponseEntity.ok(service.update(uuid, dto));
-        return civil-dashboard;
+        return ResponseEntity.ok(service.update(uuid, dto));
+        //return "civil-dashboard";
     }
 
     @ResponseBody
@@ -81,8 +81,8 @@ public class CivilController {
 
         service.deleteById(uuid);
 
-        //return ResponseEntity.ok("Usuário deletado com sucesso");
-        return civil-dashboard;
+        return ResponseEntity.ok("Usuário deletado com sucesso");
+        //return "civil-dashboard";
     }
 
     @ResponseBody
