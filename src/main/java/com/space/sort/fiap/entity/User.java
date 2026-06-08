@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 @Entity
 @Data
 @ToString
-@Table(name="tb_account")
+@Table(name="tb_user")
 public class User {
 
     @Column(nullable = false)
