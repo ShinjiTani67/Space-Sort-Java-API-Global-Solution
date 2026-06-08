@@ -2,7 +2,7 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Sign In</title>
+    <title>Cadastro de Usuário</title>
 
     <style>
         *{
@@ -40,6 +40,7 @@
         label{
             display:block;
             margin-bottom:5px;
+            font-weight:bold;
         }
 
         input,
@@ -70,13 +71,26 @@
             text-align:center;
             font-weight:bold;
         }
+
+        .success{
+            color:green;
+        }
+
+        .error{
+            color:red;
+        }
+
+        .login-link{
+            text-align:center;
+            margin-top:15px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
 
-    <h1>Cadastro Usuário</h1>
+    <h1>Cadastro de Usuário</h1>
 
     <form id="userForm">
 
@@ -96,93 +110,91 @@
         </div>
 
         <div class="form-group">
-            <label for="role">Tipo de usuário</label>
+            <label for="role">Tipo de Usuário</label>
             <select id="role">
-                <option value="astronaut">Astronauta</option>
-                <option value="civil">Civil</option>
+                <option value="ROLE_ASTRONAUT">Astronauta</option>
+                <option value="ROLE_CIVIL">Civil</option>
             </select>
         </div>
 
         <button type="submit">
-            Salvar
+            Cadastrar
         </button>
 
     </form>
 
-    <div class="message" id="message"></div>
+    <div id="message" class="message"></div>
+
+    <div class="login-link">
+        <a th:href="@{/}">Voltar para Login</a>
+    </div>
 
 </div>
 
 <script>
     document.getElementById("userForm")
-        .addEventListener("submit", async function (event) {
+        .addEventListener("submit", async function(event) {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        const selectedRole =
-            document.getElementById("role").value;
+            const user = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                password: document.getElementById("password").value,
+                role: document.getElementById("role").value
+            };
 
-        const user = {
-            name: document.getElementById("name").value,
-            email: document.getElementById("email").value,
-            password: document.getElementById("password").value,
-            role: selectedRole === "astronaut"
-                ? "ROLE_ASTRONAUT"
-                : "ROLE_CIVIL"
-        };
+            console.log("Payload enviado:", user);
 
-        const endpoint =
-            selectedRole === "astronaut"
-                ? "/users/save"
-                : "/civil/save";
+            try {
 
-        console.log("Endpoint:", endpoint);
-        console.log("Payload:", JSON.stringify(user));
+                const response = await fetch("/users/save", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(user)
+                });
 
-        try {
+                if (response.ok) {
 
-            const response = await fetch(endpoint, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(user)
-            });
+                    const data = await response.json();
 
-            console.log("Status:", response.status);
+                    console.log("Usuário criado:", data);
 
-            if (response.ok) {
+                    document.getElementById("message").className =
+                        "message success";
 
-                const data = await response.json();
+                    document.getElementById("message").innerHTML =
+                        "Usuário cadastrado com sucesso!";
 
-                console.log("Resposta:", data);
+                    document.getElementById("userForm").reset();
+
+                } else {
+
+                    const errorText = await response.text();
+
+                    console.error("Erro do backend:", errorText);
+
+                    document.getElementById("message").className =
+                        "message error";
+
+                    document.getElementById("message").innerHTML =
+                        "Erro ao cadastrar usuário. Status: "
+                        + response.status;
+                }
+
+            } catch (error) {
+
+                console.error("Erro de requisição:", error);
+
+                document.getElementById("message").className =
+                    "message error";
 
                 document.getElementById("message").innerHTML =
-                    "Usuário salvo com sucesso!";
-
-                document.getElementById("userForm").reset();
-
-            } else {
-
-                const errorText = await response.text();
-
-                console.error("Erro backend:");
-                console.error(errorText);
-
-                document.getElementById("message").innerHTML =
-                    "Erro ao salvar usuário. Status: "
-                    + response.status;
+                    "Erro de conexão com o servidor.";
             }
-
-        } catch (error) {
-
-            console.error("Erro de requisição:");
-            console.error(error);
-
-            document.getElementById("message").innerHTML =
-                "Erro na requisição";
-        }
-    });
+        });
 </script>
 
 </body>

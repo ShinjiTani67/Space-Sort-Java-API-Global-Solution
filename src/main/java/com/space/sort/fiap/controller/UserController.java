@@ -1,7 +1,7 @@
 package com.space.sort.fiap.controller;
 
-import com.space.sort.fiap.dto.AstronautDTO;
-import com.space.sort.fiap.service.AstronautService;
+import com.space.sort.fiap.dto.UserDTO;
+import com.space.sort.fiap.service.UserService;
 import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,11 +12,11 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/astronaut")
 @Log
-public class AstronautController {
+public class UserController {
 
-    private final AstronautService service;
+    private final UserService service;
 
-    public AstronautController(AstronautService service) {
+    public UserController(UserService service) {
         this.service = service;
     }
 
@@ -45,7 +45,7 @@ public class AstronautController {
 
     @ResponseBody
     @GetMapping("/{uuid}")
-    public ResponseEntity<AstronautDTO> getUserById(
+    public ResponseEntity<UserDTO> getUserById(
             @PathVariable UUID uuid) {
 
         return ResponseEntity.ok(
@@ -55,21 +55,21 @@ public class AstronautController {
 
     @ResponseBody
     @PostMapping("/save")
-    public ResponseEntity<AstronautDTO> saveUser(
-            @RequestBody AstronautDTO astronautDTO) {
+    public ResponseEntity<UserDTO> saveUser(
+            @RequestBody UserDTO userDTO) {
 
-        log.info("Salvando usuário: " + astronautDTO);
+        log.info("Salvando usuário: " + userDTO);
 
         return ResponseEntity.ok(
-                service.save(astronautDTO)
+                service.save(userDTO)
         );
     }
 
     @ResponseBody
     @PutMapping("/{uuid}")
-    public ResponseEntity<AstronautDTO> update(
+    public ResponseEntity<UserDTO> update(
             @PathVariable UUID uuid,
-            @RequestBody AstronautDTO dto) {
+            @RequestBody UserDTO dto) {
 
         return ResponseEntity.ok(
                 service.update(uuid, dto)

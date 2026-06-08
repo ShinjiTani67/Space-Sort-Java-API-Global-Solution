@@ -70,7 +70,6 @@ public class SampleService {
                 .collect(Collectors.toList());
     }
 
-    // BUSCAR POR ID
     public SampleDTO findById(UUID uuid) {
 
         Sample sample = repository.findById(uuid)

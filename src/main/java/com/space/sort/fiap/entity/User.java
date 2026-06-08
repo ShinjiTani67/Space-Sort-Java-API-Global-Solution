@@ -13,18 +13,22 @@ import jakarta.persistence.Id;
 @Data
 @ToString
 @Table(name="tb_account")
-public class Astronaut {
+public class User {
 
     @Column(nullable = false)
     private String name;
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
+
     @Column(nullable = false)
     private String email;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role = Role.ROLE_ASTRONAUT;
+
     @Column(nullable = false)
     private String password;
 }

@@ -1,8 +1,8 @@
 package com.space.sort.fiap.service;
 
-import com.space.sort.fiap.dto.AstronautDTO;
-import com.space.sort.fiap.entity.Astronaut;
-import com.space.sort.fiap.repository.AstronautRepository;
+import com.space.sort.fiap.dto.UserDTO;
+import com.space.sort.fiap.entity.User;
+import com.space.sort.fiap.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class AstronautService {
+public class UserService {
 
-    private final AstronautRepository repository;
+    private final UserRepository repository;
 
-    private AstronautDTO convertToDTO(Astronaut astronaut) {
+    private UserDTO convertToDTO(User astronaut) {
 
-        AstronautDTO dto = new AstronautDTO();
+        UserDTO dto = new UserDTO();
 
         dto.setUuid(astronaut.getUuid());
         dto.setName(astronaut.getName());
@@ -29,9 +29,9 @@ public class AstronautService {
         return dto;
     }
 
-    private Astronaut convertToEntity(AstronautDTO dto) {
+    private User convertToEntity(UserDTO dto) {
 
-        Astronaut astronaut = new Astronaut();
+        User astronaut = new User();
 
         if (dto.getUuid() != null) {
             astronaut.setUuid(dto.getUuid());
@@ -45,16 +45,16 @@ public class AstronautService {
         return astronaut;
     }
 
-    public AstronautDTO save(AstronautDTO astronautDTO) {
+    public UserDTO save(UserDTO userDTO) {
 
-        Astronaut astronaut = convertToEntity(astronautDTO);
+        User astronaut = convertToEntity(userDTO);
 
         astronaut = repository.save(astronaut);
 
         return convertToDTO(astronaut);
     }
 
-    public List<AstronautDTO> getUser() {
+    public List<UserDTO> getUser() {
 
         return repository.findAll()
                 .stream()
@@ -62,9 +62,9 @@ public class AstronautService {
                 .collect(Collectors.toList());
     }
 
-    public AstronautDTO findById(UUID uuid) {
+    public UserDTO findById(UUID uuid) {
 
-        Astronaut astronaut = repository.findById(uuid)
+        User astronaut = repository.findById(uuid)
                 .orElseThrow(() ->
                         new RuntimeException(
                                 "Funcionário com id " + uuid + " não encontrado"
@@ -85,9 +85,9 @@ public class AstronautService {
         repository.deleteById(uuid);
     }
 
-    public AstronautDTO update(UUID uuid, AstronautDTO dto) {
+    public UserDTO update(UUID uuid, UserDTO dto) {
 
-        Astronaut astronaut = repository.findByUuid(uuid)
+        User astronaut = repository.findByUuid(uuid)
                 .orElseThrow(() ->
                         new RuntimeException("Funcionário não encontrado"));
 
