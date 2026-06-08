@@ -1,4 +1,13 @@
 trigger:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'java postgres'
+    repository: 'javapostgres553587'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: |
+      $(Build.BuildId)
+      latest
 - main
 
 pool:
