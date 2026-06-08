@@ -1,13 +1,4 @@
 trigger:
-- task: Docker@2
-  inputs:
-    containerRegistry: 'java postgres'
-    repository: 'javapostgres553587'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
-    tags: |
-      $(Build.BuildId)
-      latest
 - main
 
 pool:
@@ -17,6 +8,16 @@ steps:
 
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'java postgres'
+    repository: 'javapostgres553587'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: |
+      $(Build.BuildId)
+      latest
 
 - task: Docker@2
   inputs:
