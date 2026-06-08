@@ -11,28 +11,8 @@ steps:
 
 - task: Docker@2
   inputs:
-    containerRegistry: 'java postgres'
+    containerRegistry: 'javapostgres553587'
     repository: 'javapostgres553587'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
-    tags: |
-      $(Build.BuildId)
-      latest
-
-- task: Docker@2
-  inputs:
-    containerRegistry: 'javapostgres553587'
-    repository: 'postgres'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
-    tags: |
-      $(Build.BuildId)
-      latest
-
-- task: Docker@2
-  inputs:
-    containerRegistry: 'javapostgres553587'
-    repository: 'postgresql'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
     tags: |
