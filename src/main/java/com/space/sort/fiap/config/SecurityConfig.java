@@ -16,82 +16,19 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
 public class SecurityConfig {
 
-    private final CustomUserDetailsService customUserDetailsService;
-
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-
-        DaoAuthenticationProvider auth =
-                new DaoAuthenticationProvider(customUserDetailsService);
-
-        auth.setPasswordEncoder(passwordEncoder());
-
-        return auth;
-    }
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)
-            throws Exception {
-
-        http.authenticationProvider(authenticationProvider());
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
                 .csrf(csrf -> csrf.disable())
-
-                .cors(cors ->
-                        cors.configurationSource(corsConfigurationSource())
-                )
-
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-
-                        .requestMatchers(
-                                "/",
-                                "/signin",
-                                "/users/save",
-                                "/users/signin",
-                                "/css/**",
-                                "/js/**"
-                        ).permitAll()
-
-                        .requestMatchers("/users/dashboard")
-                        .hasAnyRole("ASTRONAUT", "CIVIL")
-
-                        .anyRequest()
-                        .authenticated()
-                )
-
-                .formLogin(form -> form
-
-                        .loginPage("/")
-
-                        .successHandler((request, response, authentication) -> {
-
-                            boolean isAstronaut =
-                                    authentication.getAuthorities()
-                                            .stream()
-                                            .anyMatch(a ->
-                                                    a.getAuthority()
-                                                            .equals("ROLE_ASTRONAUT"));
-
-                            if (isAstronaut) {
-                                response.sendRedirect("/users/dashboard");
-                            } else {
-                                response.sendRedirect("/users/dashboard");
-                            }
-                        })
-
-                        .permitAll()
-                )
-
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/?logout")
-                        .permitAll()
+                        .anyRequest().permitAll()
                 );
 
         return http.build();

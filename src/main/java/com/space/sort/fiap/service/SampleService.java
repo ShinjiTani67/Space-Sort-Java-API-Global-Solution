@@ -45,23 +45,20 @@ public class SampleService {
 
         sample.setName(dto.getName());
         sample.setDescription(dto.getDescription());
-        sample.setUuid(dto.getUuid());
-        sample.setDate(dto.getData());
         sample.setOwner(dto.getOwner());
-
+        sample.setDate(dto.getData());
+        sample.setUuid(dto.getUuid());
         return sample;
     }
 
     public SampleDTO save(SampleDTO sampleDTO) {
 
         Sample sample = convertToEntity(sampleDTO);
-
         sample = repository.save(sample);
 
         return convertToDTO(sample);
     }
 
-    // LISTAR TODOS
     public List<SampleDTO> getSample() {
 
         return repository.findAll()
@@ -75,7 +72,7 @@ public class SampleService {
         Sample sample = repository.findById(uuid)
                 .orElseThrow(() ->
                         new RuntimeException(
-                                "Funcionário com id " + uuid + " não encontrado"
+                                "Sample com id " + uuid + " não encontrado"
                         )
                 );
 
@@ -86,7 +83,7 @@ public class SampleService {
 
         if (!repository.existsById(uuid)) {
             throw new RuntimeException(
-                    "Funcionário com id " + uuid + " não encontrado"
+                    "Sample com id " + uuid + " não encontrado"
             );
         }
 
@@ -97,13 +94,14 @@ public class SampleService {
 
         Sample sample = repository.findByUuid(uuid)
                 .orElseThrow(() ->
-                        new RuntimeException("Funcionário não encontrado"));
+                        new RuntimeException("Sample não encontrado"));
 
-        sample.setName(dto.getName());
-        sample.setOwner(dto.getOwner());
-        sample.setDate(dto.getData());
-        sample.setDescription(dto.getDescription());
         sample.setUuid(dto.getUuid());
+        sample.setName(dto.getName());
+        sample.setDescription(dto.getDescription());
+        sample.setDate(dto.getData());
+        sample.setOwner(dto.getOwner());
+
         sample = repository.save(sample);
 
         return convertToDTO(sample);

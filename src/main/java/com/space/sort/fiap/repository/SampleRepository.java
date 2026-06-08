@@ -8,5 +8,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface SampleRepository extends JpaRepository<Sample,UUID> {
 
     Optional<Sample> findByUuid(UUID uuid);
-    Optional<Sample> findByEmail(String email);
 }

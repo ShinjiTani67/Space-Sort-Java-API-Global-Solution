@@ -7,10 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
-@Controller
-@RequestMapping("/samples")
+@RestController
+@RequestMapping("/sample")
 @Log
 public class SampleController {
 
@@ -20,65 +21,47 @@ public class SampleController {
         this.service = service;
     }
 
-    @ResponseBody
-    @GetMapping("/all")
-    public ResponseEntity<?> listSample() {
+    @GetMapping("/list")
+    public List<SampleDTO> listSample() {
 
         var sampleList = service.getSample();
 
-        sampleList.forEach(e ->
-                log.info("ID sample: " + e.getUuid())
+        sampleList.forEach(s ->
+                log.info("ID sample: " + s.getUuid())
         );
 
-        return ResponseEntity.ok(sampleList);
+        return sampleList;
     }
 
-    @ResponseBody
-    @GetMapping("/{uuid}")
-    public ResponseEntity<SampleDTO> getSampleById(
-            @PathVariable UUID uuid) {
-
-        return ResponseEntity.ok(
-                service.findById(uuid)
-        );
-    }
-
-    @ResponseBody
-    @PostMapping("/save")
-    public ResponseEntity<SampleDTO> saveSample(
-            @RequestBody SampleDTO sampleDTO) {
-
-        log.info("Salvando sample: " + sampleDTO);
-
-        return ResponseEntity.ok(
-                service.save(sampleDTO)
-        );
-    }
-
-    @ResponseBody
     @PutMapping("/{uuid}")
     public ResponseEntity<SampleDTO> update(
             @PathVariable UUID uuid,
             @RequestBody SampleDTO dto) {
 
-        return ResponseEntity.ok(
-                service.update(uuid, dto)
-        );
+        return ResponseEntity.ok(service.update(uuid, dto));
     }
 
-    @ResponseBody
+    @GetMapping("/{uuid}")
+    public SampleDTO getSampleById(@PathVariable UUID uuid) {
+        return service.findById(uuid);
+    }
+
+    @PostMapping("/save")
+    public SampleDTO saveSample(@RequestBody SampleDTO sampleDTO) {
+
+        log.info("Salvando sample: " + sampleDTO);
+
+        return service.save(sampleDTO);
+    }
+
     @DeleteMapping("/delete/{uuid}")
-    public ResponseEntity<String> deleteSample(
-            @PathVariable UUID uuid) {
+    public String deleteSample(@PathVariable UUID uuid) {
 
         service.deleteById(uuid);
 
-        return ResponseEntity.ok(
-                "Sample deletado com sucesso"
-        );
+        return "Sample deletado com sucesso";
     }
 
-    @ResponseBody
     @GetMapping("/test")
     public String test() {
         return "Conectado com sucesso";

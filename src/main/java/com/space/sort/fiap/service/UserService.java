@@ -16,44 +16,46 @@ public class UserService {
 
     private final UserRepository repository;
 
-    private UserDTO convertToDTO(User astronaut) {
+    private UserDTO convertToDTO(User user) {
 
         UserDTO dto = new UserDTO();
 
-        dto.setUuid(astronaut.getUuid());
-        dto.setName(astronaut.getName());
-        dto.setEmail(astronaut.getEmail());
-        dto.setPassword(astronaut.getPassword());
-        dto.setRole(astronaut.getRole());
+        dto.setUuid(user.getUuid());
+        dto.setName(user.getName());
+        dto.setEmail(user.getEmail());
+        dto.setPassword(user.getPassword());
+        dto.setRole(user.getRole());
 
         return dto;
     }
 
     private User convertToEntity(UserDTO dto) {
 
-        User astronaut = new User();
+        User user = new User();
 
         if (dto.getUuid() != null) {
-            astronaut.setUuid(dto.getUuid());
+            user.setUuid(dto.getUuid());
         }
 
-        astronaut.setName(dto.getName());
-        astronaut.setEmail(dto.getEmail());
-        astronaut.setUuid(dto.getUuid());
-        astronaut.setPassword(dto.getPassword());
-        astronaut.setRole(dto.getRole());
-        return astronaut;
+        user.setName(dto.getName());
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword());
+        user.setRole(dto.getRole());
+
+        return user;
     }
 
     public UserDTO save(UserDTO userDTO) {
 
-        User astronaut = convertToEntity(userDTO);
+        User user = convertToEntity(userDTO);
 
-        astronaut = repository.save(astronaut);
+        // NÃO gerar UUID manualmente
+        user = repository.save(user);
 
-        return convertToDTO(astronaut);
+        return convertToDTO(user);
     }
 
+    // LISTAR TODOS
     public List<UserDTO> getUser() {
 
         return repository.findAll()
@@ -62,23 +64,36 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    // BUSCAR POR ID
     public UserDTO findById(UUID uuid) {
 
-        User astronaut = repository.findById(uuid)
+        User user = repository.findById(uuid)
                 .orElseThrow(() ->
                         new RuntimeException(
-                                "Funcionário com id " + uuid + " não encontrado"
+                                "Usuário com id " + uuid + " não encontrado"
                         )
                 );
 
-        return convertToDTO(astronaut);
+        return convertToDTO(user);
+    }
+
+    public UserDTO findByEmail(String email) {
+
+        User user = repository.findByEmail(email)
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "Usuário com email " + email + " não encontrado"
+                        )
+                );
+
+        return convertToDTO(user);
     }
 
     public void deleteById(UUID uuid) {
 
         if (!repository.existsById(uuid)) {
             throw new RuntimeException(
-                    "Funcionário com id " + uuid + " não encontrado"
+                    "Usuário com id " + uuid + " não encontrado"
             );
         }
 
@@ -87,17 +102,17 @@ public class UserService {
 
     public UserDTO update(UUID uuid, UserDTO dto) {
 
-        User astronaut = repository.findByUuid(uuid)
+        User user = repository.findByUuid(uuid)
                 .orElseThrow(() ->
-                        new RuntimeException("Funcionário não encontrado"));
+                        new RuntimeException("Usuário não encontrado"));
 
-        astronaut.setName(dto.getName());
-        astronaut.setEmail(dto.getEmail());
-        astronaut.setPassword(dto.getPassword());
-        astronaut.setRole(dto.getRole());
+        user.setName(dto.getName());
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword());
+        user.setRole(dto.getRole());
 
-        astronaut = repository.save(astronaut);
+        user = repository.save(user);
 
-        return convertToDTO(astronaut);
+        return convertToDTO(user);
     }
 }
