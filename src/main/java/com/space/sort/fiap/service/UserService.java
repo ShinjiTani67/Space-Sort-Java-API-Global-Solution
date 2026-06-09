@@ -49,13 +49,11 @@ public class UserService {
 
         User user = convertToEntity(userDTO);
 
-        // NÃO gerar UUID manualmente
         user = repository.save(user);
 
         return convertToDTO(user);
     }
 
-    // LISTAR TODOS
     public List<UserDTO> getUser() {
 
         return repository.findAll()
